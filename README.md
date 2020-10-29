@@ -22,14 +22,12 @@ First, install the project's dependencies using `npm`.
 
 ```
 npm install
-
 ```
 
 Second, update any vulnerabilities
 
 ```
 npm audit fix
-
 ```
 
 Third, seed the SQLite database.
