@@ -1,8 +1,11 @@
 'use strict';
 const {
-  Model
+  Model,
+  DataTypes
 } = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
+const bcrypt = require('bcryptjs');
+
+module.exports = (sequelize) => {
   class User extends Model {
     /**
      * Helper method for defining associations.
@@ -11,18 +14,73 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.hasMany(models.Course, {
+        foreignKey: {
+          fieldName: 'userId',
+          allowNull: false,
+        }
+      })
     }
   };
+
   User.init({
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
     },
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    emailAddress: DataTypes.STRING,
-    password: DataTypes.STRING
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "A first name is required"
+        },
+        notEmpty: {
+          msg: "Please provide a last name"
+        }
+      }
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: "A last name is required"
+        },
+        notEmpty: {
+          msg: "Please provide a last name"
+        }
+      }
+    },
+    emailAddress: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: {
+        msg: 'The email you entered already exists'
+      },
+      validate: {
+        notNull: {
+          msg: "An email address is required"
+        },
+        isEmail: {
+          msg: 'please provide a valid email address'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,  
+      allowNull: false,
+      set(val) {
+        const hashedPassword = bcrypt.hashSync(val, 10);
+        this.setDataValue('password', hashedPassword);
+      },
+      validate: {
+        notNull: {
+          msg: 'A password is required'
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'User',
