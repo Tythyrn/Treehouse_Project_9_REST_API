@@ -1,5 +1,9 @@
 
 # Treehouse Project 9 FSJS REST API
+Project 9 of Treehouse FSJS Techdegree Program
+
+# Motivation
+Motivation behind this project is to continue my learning within the fullstack JavaScript program. This focused on building an API for storing courses created by users.  This will be used for Project 10 of the FSJS program.
 
 ## Overview of the Provided Project Files
 
