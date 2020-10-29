@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.User, {
+        as: 'owner',
         foreignKey: {
           fieldName: 'userId',
           allowNull: false,
