@@ -1,5 +1,5 @@
 
-# Full Stack JavaScript Techdegree v2 - REST API Project
+# Treehouse Project 9 FSJS REST API
 
 ## Overview of the Provided Project Files
 
@@ -16,6 +16,8 @@ We've supplied the following files for you to use:
 
 To get up and running with this project, run the following commands from the root of the folder that contains this README file.
 
+NOTE: I followed the pinned comment for 'robertpm' on the project to get started
+
 First, install the project's dependencies using `npm`.
 
 ```
@@ -23,13 +25,20 @@ npm install
 
 ```
 
-Second, seed the SQLite database.
+Second, update any vulnerabilities
+
+```
+npm audit fix
+
+```
+
+Third, seed the SQLite database.
 
 ```
 npm run seed
 ```
 
-And lastly, start the application.
+Lastly, start the application.
 
 ```
 npm start
