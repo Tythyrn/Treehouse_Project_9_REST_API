@@ -26,7 +26,7 @@ router.post('/users', asyncHandler(async (req, res) => {
   try {
     //NOTE: password is hashed within the user Sequelize model
     await User.create(req.body);
-    res.status(201).location('/').end();
+    res.status(201).set('Location', `/`).end();
   } catch (err) {
     if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
       const errors = err.errors.map(err => err.message);
@@ -61,8 +61,8 @@ router.post('/courses', authenticateUser, asyncHandler(async (req, res) => {
     const user = req.currentUser;
     req.body.userId = user.id;
 
-    await Course.create(req.body);
-    res.status(201).location('/').end();
+    const course = await Course.create(req.body);
+    res.status(201).set('Location', `/courses/${course.id}`).end();
   } catch (err) {
     if (err.name === 'SequelizeValidationError' || err.name === 'SequelizeUniqueConstraintError') {
       const errors = err.errors.map(err => err.message);
